@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+</head>
+<body>
+    <h1 th:text="${heading}"></h1>
+    <h2>About Me</h2>
+    <p th:text="${about}"></p>
+    <h2>Some of my favourite songs right now</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Artist</th>
+                <th>Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="song : ${songs}">
+                <td style="padding: 0.5rem" th:text="${song.getArtist()}"></td>
+                <td style="padding: 0.5rem; display: flex; justify-content: center" th:text="${song.getTitle()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
