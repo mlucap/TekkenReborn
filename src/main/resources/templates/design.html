@@ -14,41 +14,44 @@
 <!-- tag::formTag[] -->
 <form method="POST" th:object="${fighter}">
 
-  <div class="fighter-group">
-    <h3>Designate your fighter:</h3>
-    <div class="hero-input">
-      <label for="name">Name: </label>
-      <input type="text" th:field="*{name}" name="name" placeholder="Name" />
-    </div>
-
-    <div class="hero-input">
-      <label for="damage">Damage per hit: </label>
-      <input type="number" th:field="*{damagePerHit}" name="damage" placeholder="Damage per hit" />
-    </div>
-
-    <div class="hero-input">
-      <label for="health">Health: </label>
-      <input type="number" th:field="*{health}" name="health" placeholder="Health" />
-    </div>
-
-    <div class="hero-input">
-      <label for="resistance">Resistance: </label>
-      <input type="number" th:field="*{resistance}" name="resistance" placeholder="Resistance" />
-    </div>
-
-    <div class="hero-input" id="anime">
-      <h3>Pick your hero anime:</h3>
-      <div th:each="anime : ${animes}">
-        <input type="checkbox" th:field="*{animeFrom}" th:value="${anime}" />
-        <span th:text="${anime}">Anime</span><br />
-      </div>
-    </div>
+  <div class="hero-input">
+    <label for="name">Name: </label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Name" />
+    <span th:class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
   </div>
 
-  <div class="submit-btn">
-    <button><b>Submit Your Fighter</b></button>
+  <div class="hero-input">
+    <label for="damage">Damage per hit: </label>
+    <input type="number" th:field="*{damagePerHit}" placeholder="Damage per hit" />
+    <span class="error" th:if="${#fields.hasErrors('damagePerHit')}" th:errors="*{damagePerHit}"></span>
   </div>
-  <!-- tag::closeFormTag[] -->
+
+  <div class="hero-input">
+    <label for="health">Health: </label>
+    <input type="number" th:field="*{health}" placeholder="Health" />
+    <span class="error" th:if="${#fields.hasErrors('health')}" th:errors="*{health}"></span>
+  </div>
+
+  <div class="hero-input">
+    <label for="resistance">Resistance: </label>
+    <input type="number" step="0.1" th:field="*{resistance}" placeholder="Resistance" />
+    <span class="error" th:if="${#fields.hasErrors('resistance')}" th:errors="*{resistance}"></span>
+  </div>
+
+  <div class="hero-input" id="anime">
+    <h3>Pick your hero anime:</h3>
+    <select th:field="*{animeFrom}">
+      <option th:each="anime: ${animes}" th:value="${anime.toUpperCase()}" th:text="${anime}"></option>
+    </select>
+<!--    <div th:each="anime : ${animes}">-->
+<!--      <input type="checkbox" th:field="*{animeFrom}" th:value="${anime}" />-->
+<!--      <span th:text="${anime}"></span><br />-->
+<!--    </div>-->
+    <span class="error" th:if="${#fields.hasErrors('animeFrom')}" th:errors="*{animeFrom}"></span>
+  </div>
+
+  <button type="submit"><b>Submit Your Fighter</b></button>
+
 </form>
 <!-- end::closeFormTag[] -->
 </body>
