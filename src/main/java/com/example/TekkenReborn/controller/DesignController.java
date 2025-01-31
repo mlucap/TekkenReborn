@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.EnumSet;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Controller
 @Slf4j
@@ -27,16 +25,9 @@ public class DesignController {
 
     @ModelAttribute
     public void addAnimes(Model model) {
-        var anime = List.of(Anime.values()).stream().map(Anime::getName).collect(Collectors.toList());
-        model.addAttribute("animes", anime);
-        log.info("Add animes");
-    }
-
-    @ModelAttribute
-    public void animes(Model model) {
-        var animes = EnumSet.allOf(Anime.class);
+        var animes = Stream.of(Anime.values()).map(Anime::getName).collect(Collectors.toList());
         model.addAttribute("animes", animes);
-        log.info("Convert anime to string");
+        log.info("Add animes");
     }
 
     @ModelAttribute

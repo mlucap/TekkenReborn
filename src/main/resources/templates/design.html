@@ -41,7 +41,7 @@
   <div class="hero-input" id="anime">
     <h3>Pick your hero anime:</h3>
     <select th:field="*{animeFrom}">
-      <option th:each="anime: ${animes}" th:value="${anime.toUpperCase()}" th:text="${anime}"></option>
+      <option th:each="anime: ${animes}" th:value="${anime}" th:text="${anime}"></option>
     </select>
 <!--    <div th:each="anime : ${animes}">-->
 <!--      <input type="checkbox" th:field="*{animeFrom}" th:value="${anime}" />-->
