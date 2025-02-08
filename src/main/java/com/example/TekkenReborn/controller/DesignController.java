@@ -1,10 +1,11 @@
 package com.example.TekkenReborn.controller;
 
 import com.example.TekkenReborn.model.Anime;
-import com.example.TekkenReborn.model.CharacterPool;
 import com.example.TekkenReborn.model.Fighter;
+import com.example.TekkenReborn.repository.impl.JDBCFighterRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,13 +16,10 @@ import java.util.stream.Stream;
 @Controller
 @Slf4j
 @RequestMapping("/design")
-@SessionAttributes("characterPool")
 public class DesignController {
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        model.addAttribute("characterPool", new CharacterPool());
-        log.info("Add character pool");
-    }
+
+    @Autowired
+    private JDBCFighterRepository jdbcFighterRepository;
 
     @ModelAttribute
     public void addAnimes(Model model) {
@@ -41,14 +39,14 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processHero(@Valid Fighter fighter, BindingResult bindingResult, @ModelAttribute("characterPool") CharacterPool characterPool) {
+    public String processHero(@Valid Fighter fighter, BindingResult bindingResult) {
         if(bindingResult.hasErrors() ){
             log.warn("Validation errors found: {}", bindingResult.getAllErrors());
             return "design";
         }
 
-        characterPool.addHero(fighter);
-        log.info("Added new fighter: {}", fighter);
+        jdbcFighterRepository.save(fighter);
+        log.info("Added new fighter: {}", fighter.getName());
         return "redirect:/design";
     }
 }

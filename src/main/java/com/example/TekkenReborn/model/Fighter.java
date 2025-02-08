@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.Date;
 
 @Data
 @Builder
@@ -31,4 +32,6 @@ public class Fighter {
     private double resistance;
     @NotNull(message = "You must select an anime")
     private Anime animeFrom;
+
+    private final Date createdAt = new Date();
 }
